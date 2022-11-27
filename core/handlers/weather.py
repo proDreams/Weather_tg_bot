@@ -35,3 +35,13 @@ async def get_by_city(message: Message, state: FSMContext):
     await message.answer(init(context_data))
     await message.answer(views.end_weather())
     await state.clear()
+
+
+async def get_by_geo(message: Message, state: FSMContext):
+    custom_log(message.from_user.id, message.from_user.first_name, message.from_user.last_name, message.text)
+    await state.update_data(lat=message.location.latitude)
+    await state.update_data(lon=message.location.longitude)
+    context_data = await state.get_data()
+    await message.answer(init(context_data))
+    await message.answer(views.end_weather())
+    await state.clear()

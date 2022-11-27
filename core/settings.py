@@ -17,6 +17,7 @@ class Bots:
     admin_id: str
     appid: str
 
+
 @dataclass
 class Settings:
     bots: Bots

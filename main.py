@@ -23,7 +23,7 @@ async def start():
     logging.basicConfig(level=logging.INFO,
                         format="%(asctime)s - [%(levelname)s] -  %(name)s - %(message)s",
                         )
-    bot = Bot(token=settings.bots.bot_token)
+    bot = Bot(token=settings.bots.bot_token, parse_mode='HTML')
 
     dp = Dispatcher()
     dp.startup.register(start_bot)
@@ -32,6 +32,7 @@ async def start():
     dp.message.register(weather.get_weather_command, Command(commands='weather'))
     dp.message.register(weather.get_weather_type, StepsForm.GET_WEATHER_TYPE)
     dp.message.register(weather.get_by_city, StepsForm.BY_CITY)
+    dp.message.register(weather.get_by_geo, StepsForm.BY_GEO)
 
     dp.message.register(get_start, Command(commands='start'))
     dp.message.register(get_help, Command(commands='help'))
