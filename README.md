@@ -30,7 +30,11 @@ pip install -Iv sympy==1.11.1
 Или из requirements.txt:
 pip install -r requirements.txt
 ```
-
+Так же в файл `input` прописать необходимые данные:
+```commandline
+BOT_TOKEN=123456-токен_бота
+ADMIN_ID=123456-id_администратора
+```
 ## Над проектом работали:
 - [Иван Ашихмин](https://github.com/proDreams)
 - [Никита Жиленко](https://github.com/NikitaStelent)
