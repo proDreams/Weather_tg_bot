@@ -2,8 +2,25 @@ import requests
 from core.settings import settings
 
 ICONS = {
-    '01d': '',
-    '02d': ''
+    '01d': '🌞',
+    '02d': '🌤',
+    '03d': '🌥',
+    '04d': '☁️',
+    '09d': '🌧',
+    '10d': '🌦',
+    '11d': '🌩',
+    '13d': '❄️',
+    '50d': '🌫',
+    '01n': '🌙',
+    '02n': '🌒',
+    '03n': '🌥',
+    '04n': '☁️',
+    '09n': '🌧',
+    '10n': '🌦',
+    '11n': '🌩',
+    '13n': '❄️',
+    '50n': '🌫',
+
 }
 
 
@@ -15,6 +32,8 @@ def init(user_data):
                            params={'q': city, 'type': 'like', 'units': 'metric', 'lang': 'ru',
                                    'APPID': settings.bots.appid})
         data = res.json()
+        if data['count'] == 0:
+            return 0
         return generate_result(data, city)
     elif search_type == 'weather':
         res = requests.get("http://api.openweathermap.org/data/2.5/find",
@@ -26,20 +45,20 @@ def init(user_data):
 
 
 def generate_result(data, city):
-    temp = data['list'][0]['main']['temp']
+    temp = int(data['list'][0]['main']['temp'])
     feels_like = data['list'][0]['main']['feels_like']
-    pressure = data['list'][0]['main']['pressure']
+    pressure = int(data['list'][0]['main']['pressure']) * 0.75
     humidity = data['list'][0]['main']['humidity']
-    wind_speed = data['list'][0]['wind']['speed']
-    rain = 'Нет' if data['list'][0]['rain'] is None else 'Да'
-    snow = 'Нет' if data['list'][0]['snow'] is None else 'Да'
+    wind_speed = int(data['list'][0]['wind']['speed'])
+    rain = 'не ожидается' if data['list'][0]['rain'] is None else 'ожидается'
+    snow = 'не ожидается' if data['list'][0]['snow'] is None else 'ожидается'
     weather = data['list'][0]['weather'][0]['description']
     return f'''
-<b>Актуальная погода в городе {city}</b>
-Температура {temp}
-ощущается как {feels_like}
-Статус {weather}
-Давление {pressure}, влажность {humidity}
-Скорость ветра {wind_speed}
-Дождь {rain}, снег {snow}
+<b>Прогноз погоды в городе {city}</b>
+
+Сейчас температура {temp}°C  ощущается как {feels_like}°
+⛅️{weather}⛅️  
+💨 скорость ветра {wind_speed}м/с 💨
+давление {pressure} мм рт.ст., влажность {humidity}%
+💦 дождь {rain}, ❄️ снег {snow}
 '''
