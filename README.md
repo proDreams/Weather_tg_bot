@@ -30,6 +30,13 @@ pip install -Iv requests==2.28.1
 pip install -r requirements.txt
 ```
 
+Так же в файл `input` в корне каталога, прописать необходимые данные:
+```commandline
+BOT_TOKEN=123456-токен_бота
+ADMIN_ID=123456-id_администратора
+API_TOKEN=api_токен_сайта_openweathermap.org
+```
+
 ## Над проектом работали:
 - [Иван Ашихмин](https://github.com/proDreams)
 - [Кристина Большакова](https://github.com/KristinaBolshakova)
